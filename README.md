@@ -19,5 +19,5 @@ python accio.py /home/user/Desktop/accioConfig.json 8080</br>
 Example Output:</br>
 </br>
 Accio --% ~~~~ @X@ Server Active @X@</br>
-Server Listening On Port 1113</br>
+Server Listening On Port 8080</br>
 Press CTRL+C to stop the server
