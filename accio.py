@@ -30,18 +30,19 @@ def printHelp():
 	print "GitHub: https://github.com/DotNetRussell"
 	print ""
 	print "To Use:"
-	print "python accio.py [config file path] [target localhost port]"
-	print
+	print "python accio.py [config file path] [target localhost port] [calling port (because of CORS)]"
+	print ""
 	print "Example"
-	print "python accio.py /home/user/Desktop/accioConfig.json 8080"
+	print "python accio.py /home/user/Desktop/accioConfig.json 8080 4200"
 	print ""
 
-if(len(sys.argv) != 3):
+if(len(sys.argv) != 4):
 	printHelp()
 	sys.exit()
 
 configFile = sys.argv[1]
 targetPort = int(sys.argv[2])
+callingPort = int(sys.argv[3])
 
 routeDictionary = {}
 
@@ -56,9 +57,15 @@ class requestHandler(BaseHTTPRequestHandler):
 
 	#Handler for the GET requests
 	def do_GET(self):
-		jsonFile = open(routeDictionary[self.path],"r+")  
-		response = jsonFile.readlines()
+		if(self.path not in routeDictionary):
+			self.send_response(404)
+			print self.path + "Not Found"
+			return
+
+		jsonFile = open(routeDictionary[self.path],"r+")
+		response = '\n'.join(jsonFile.readlines())
 		self.send_response(200)
+		self.send_header('Access-Control-Allow-Origin', 'http://localhost:' + str(callingPort));
 		self.send_header('Content-type','text/json')
 		self.end_headers()
 		self.wfile.write(response)
