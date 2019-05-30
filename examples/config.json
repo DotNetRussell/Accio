@@ -1,0 +1,14 @@
+{
+	"routes" : [
+		{
+			"url" : "/endpoint1",
+			"path" : "./endpoint1.json"
+		},
+		{
+			"url" : "/endpoint2",
+			"path" : "./endpoint2.json"
+		}
+
+	]
+
+}
