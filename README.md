@@ -10,11 +10,11 @@ GitHub: https://github.com/DotNetRussell</br>
 </br>
 To Use:</br>
 </br>
-python accio.py [config file path] [target localhost port]</br>
+python accio.py [config file path] [target localhost port] [calling port (For CORS)]</br>
 </br>
 Example:</br>
 </br>
-python accio.py /home/user/Desktop/accioConfig.json 8080</br>
+python accio.py /home/user/Desktop/accioConfig.json 8080 4200</br>
 </br>
 Example Output:</br>
 </br>
