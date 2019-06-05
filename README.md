@@ -31,7 +31,16 @@ Example Config:</br>
                         "url" : "/endpoint1",
                         "definition" : {
                                 "filePath" : "./examples/endpoint1.json",
+                                "method" : "GET",
                                 "delay" : 5
+                        }
+                },
+                {
+                        "url" : "/endpoint1",
+                        "definition" : {
+                                "filePath" : "./examples/endpoint1_post.json",
+                                "method" : "POST",
+                                "delay" : 2
                         }
                 },
                 {
