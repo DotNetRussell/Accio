@@ -19,7 +19,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 import sys
 import json
-
+import time
 
 def printHelp():
 	print ""
@@ -50,26 +50,38 @@ with open(configFile) as json_file:
     data = json.load(json_file)
     for route in data['routes']:
         url = route['url']
-        path = route['path']
-	routeDictionary[url] = path
+	routeDefinition = route['definition']
+	routeDictionary[url] = routeDefinition
+
+def generateResponse(self):
+	if(self.path not in routeDictionary):
+		self.send_response(404)
+		print self.path + "Not Found"
+		return
+
+	routeDefinition = routeDictionary[self.path]
+
+	if('delay' in routeDefinition.keys()) :
+		time.sleep(routeDefinition['delay'])
+
+	jsonFilePath = routeDefinition["filePath"]
+	payloadData = open(jsonFilePath)
+	response = '\n'.join(payloadData.readlines())
+	self.send_response(200)
+	self.send_header('Access-Control-Allow-Origin', 'http://localhost:' + str(callingPort));
+	self.send_header('Content-type','text/json')
+	self.end_headers()
+	self.wfile.write(response)
+
+	return
+
 
 class requestHandler(BaseHTTPRequestHandler):
+	def do_POST(self):
+		return generateResponse(self)
 
-	#Handler for the GET requests
 	def do_GET(self):
-		if(self.path not in routeDictionary):
-			self.send_response(404)
-			print self.path + "Not Found"
-			return
-
-		jsonFile = open(routeDictionary[self.path],"r+")
-		response = '\n'.join(jsonFile.readlines())
-		self.send_response(200)
-		self.send_header('Access-Control-Allow-Origin', 'http://localhost:' + str(callingPort));
-		self.send_header('Content-type','text/json')
-		self.end_headers()
-		self.wfile.write(response)
-		return
+		return generateResponse(self)
 
 try:
 	server = HTTPServer(('', targetPort), requestHandler)

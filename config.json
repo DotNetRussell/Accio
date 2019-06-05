@@ -2,11 +2,17 @@
 	"routes" : [
 		{
 			"url" : "/endpoint1",
-			"path" : "./examples/endpoint1.json"
+			"definition" : {
+				"filePath" : "./examples/endpoint1.json",
+				"delay" : 5
+			}
 		},
 		{
 			"url" : "/endpoint2",
-			"path" : "./examples/endpoint2.json"
+			"definition" : {
+				"filePath" : "./examples/endpoint2.json"
+
+			}
 		}
 
 	]
