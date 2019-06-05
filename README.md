@@ -21,3 +21,29 @@ Example Output:</br>
 Accio --% ~~~~ @X@ Server Active @X@</br>
 Server Listening On Port 8080</br>
 Press CTRL+C to stop the server
+<br/>
+<br/>
+Example Config:</br>
+```
+{
+        "routes" : [
+                {
+                        "url" : "/endpoint1",
+                        "definition" : {
+                                "filePath" : "./examples/endpoint1.json",
+                                "delay" : 5
+                        }
+                },
+                {
+                        "url" : "/endpoint2",
+                        "definition" : {
+                                "filePath" : "./examples/endpoint2.json"
+
+                        }
+                }
+
+        ]
+
+}
+
+```
