@@ -1,0 +1,6 @@
+{
+	"exception" : {
+		"error_code" : 500,
+		"message" : "there was an exception while posting your data"
+	}
+}

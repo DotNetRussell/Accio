@@ -50,16 +50,23 @@ with open(configFile) as json_file:
     data = json.load(json_file)
     for route in data['routes']:
         url = route['url']
-	routeDefinition = route['definition']
-	routeDictionary[url] = routeDefinition
+	definition = route['definition']
 
-def generateResponse(self):
-	if(self.path not in routeDictionary):
+	if('method' in definition.keys()) :
+		url = url + "_" + str(definition['method']).lower()
+	else :
+		url = url + "_get"
+
+	routeDictionary[url] = definition
+
+def generateResponse(self, method):
+
+	if( (self.path + "_" + method) not in routeDictionary):
 		self.send_response(404)
-		print self.path + "Not Found"
+		print self.path + "_" + method + " - Not Found"
 		return
 
-	routeDefinition = routeDictionary[self.path]
+	routeDefinition = routeDictionary[self.path + "_" + method]
 
 	if('delay' in routeDefinition.keys()) :
 		time.sleep(routeDefinition['delay'])
@@ -78,10 +85,10 @@ def generateResponse(self):
 
 class requestHandler(BaseHTTPRequestHandler):
 	def do_POST(self):
-		return generateResponse(self)
+		return generateResponse(self, "post")
 
 	def do_GET(self):
-		return generateResponse(self)
+		return generateResponse(self, "get")
 
 try:
 	server = HTTPServer(('', targetPort), requestHandler)
