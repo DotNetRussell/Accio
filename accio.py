@@ -74,7 +74,9 @@ def generateResponse(self, method):
 
 	jsonFilePath = routeDefinition["filePath"]
 	payloadData = open(jsonFilePath)
-	response = '\n'.join(payloadData.readlines())
+	response = ''
+	for line in payloadData.readlines():
+		response = response + line.strip()
 
 	print('sending response')
 	self.send_response(200)
