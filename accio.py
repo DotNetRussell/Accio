@@ -95,6 +95,11 @@ class requestHandler(BaseHTTPRequestHandler):
 	def do_GET(self):
 		return generateResponse(self, "get")
 
+	def do_PUT(self):
+		return generateResponse(self, "put")
+
+	def do_DELETE(self):
+		return generateResponse(self, "delete")
 try:
 	server = HTTPServer(('', targetPort), requestHandler)
 	print("Accio --% ~~~~ @X@ Server Active @X@")
