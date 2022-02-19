@@ -30,19 +30,19 @@ def printHelp():
 	print("GitHub: https://github.com/DotNetRussell")
 	print("")
 	print("To Use:")
-	print("python accio.py [config file path] [target localhost port] [calling port (because of CORS)]")
+	print("python accio.py [config file path] [target localhost port]")
 	print("")
 	print("Example")
-	print("python accio.py /home/user/Desktop/accioConfig.json 8080 4200")
+	print("python accio.py /home/user/Desktop/accioConfig.json 8080")
 	print("")
 
-if(len(sys.argv) != 4):
+if(len(sys.argv) != 3):
 	printHelp()
 	sys.exit()
 
 configFile = sys.argv[1]
 targetPort = int(sys.argv[2])
-callingPort = int(sys.argv[3])
+callingPort = 4200
 
 routeDictionary = {}
 
