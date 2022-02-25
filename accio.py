@@ -60,48 +60,33 @@ with open(configFile) as json_file:
 		routeDictionary[url] = definition
 
 def wildCardPathLookup(path,method):
-	print("Path: " + path)
-	print("Method: " + method)
 	pathParts = (path+"_"+method).split("/")
 	while("" in pathParts) :
     		pathParts.remove("")
 
-	print("Parts: " + str(pathParts))
-
 	result = None
 	for route in routeDictionary:
-		print("Route outer Loop: " + route)
 		if("{$}" in route):
-			print("Wild Card Route Found")
 			routeParts = route.split("/")
 			while("" in routeParts):
 				routeParts.remove("")
-			print("Route Paths: " + str(routeParts))
 
 			if(len(routeParts) == len(pathParts)):
-				print("Route and Path equal Length")
 				for x in range(0, len(pathParts)):
-					print("Inner Wildcard Loop")
 
 					if("{$}" in routeParts[x]):
-						print("Wildcard Part Found Continuing")
 						continue
 					elif(routeParts[x] != pathParts[x]):
-						print("Part Paths don't Match\r\nRoute Path: " + routeParts[x] + "\r\nPath Part: " + pathParts[x])
 						break
 					elif(x == len(pathParts)-1):
-						print("Route Found! " + route)
 						result = route
 						break
 			else:
-				print("Route and Part Paths differ in length")
 				continue
-			print("RESULTS FOR : " + route + " " + path)
-			print(result)
+
 			if(result != None):
 				break
 
-	print("End of wild card search")
 	return result
 
 def generateResponse(self, method):
